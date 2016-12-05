@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.github.openfeign.cdi</groupId>
+  <artifactId>parent</artifactId>
+  <version>0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
+
+  <modules>
+    <module>feign-cdi</module>
+  </modules>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.6</maven.compiler.source>
+    <maven.compiler.target>1.6</maven.compiler.target>
+    <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
+    <maven.compiler.testSource>1.8</maven.compiler.testSource>
+    <cdi-api.version>1.2</cdi-api.version>
+    <owb.version>1.7.0</owb.version>
+    <rxjava.version>1.1.10</rxjava.version>
+    <arquillian-junit-container.version>1.1.11.Final</arquillian-junit-container.version>
+    <feign.version>9.4.0</feign.version>
+    <okhttp3.version>3.2.0</okhttp3.version>
+  </properties>
+
+  <name>Open Feign CDI Parent</name>
+  <description>
+    CDI Integration for OpenFeign
+  </description>
+  <url>https://github.com/OpenFeign/feign-cdi</url>
+  <inceptionYear>2016</inceptionYear>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <url>https://github.com/OpenFeign/feign-cdi</url>
+    <connection>scm:git:https://github.com/OpenFeign/feign-cdi.git</connection>
+    <developerConnection>scm:git:git@github.com:OpenFeign/feign-cdi.git</developerConnection>
+  </scm>
+
+  <developers>
+    <developer>
+      <name>John D. Ament</name>
+      <email>john.d.ament@gmail.com</email>
+    </developer>
+  </developers>
+
+  <distributionManagement>
+    <repository>
+      <id>bintray</id>
+      <url>https://api.bintray.com/maven/openfeign/maven/feign-cdi/;publish=1</url>
+    </repository>
+  </distributionManagement>
+
+  <issueManagement>
+    <system>Github</system>
+    <url>https://github.com/OpenFeign/feign-cdi/issues</url>
+  </issueManagement>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>io.github.openfeign</groupId>
+        <artifactId>feign-core</artifactId>
+        <version>${feign.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.enterprise</groupId>
+        <artifactId>cdi-api</artifactId>
+        <version>${cdi-api.version}</version>
+        <scope>provided</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>io.github.openfeign</groupId>
+        <artifactId>feign-core</artifactId>
+        <version>${feign.version}</version>
+        <type>test-jar</type>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>io.github.openfeign</groupId>
+        <artifactId>feign-ribbon</artifactId>
+        <version>${feign.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>io.reactivex</groupId>
+        <artifactId>rxjava</artifactId>
+        <version>${rxjava.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>io.github.openfeign</groupId>
+        <artifactId>feign-hystrix</artifactId>
+        <version>${feign.version}</version>
+        <optional>true</optional>
+      </dependency>
+
+      <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>3.6.1</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.jboss.arquillian.junit</groupId>
+        <artifactId>arquillian-junit-container</artifactId>
+        <version>${arquillian-junit-container.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>mockwebserver</artifactId>
+        <version>${okhttp3.version}</version>
+        <scope>test</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.0.1</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.10.4</version>
+        <configuration>
+          <additionalparam>-Xdoclint:none</additionalparam>
+        </configuration>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+            <phase>package</phase>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <executions>
+          <!-- Ensure main source tree compiles to Java ${main.java.version} bytecode. -->
+          <execution>
+            <id>default-compile</id>
+            <phase>compile</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <configuration>
+              <source>${main.java.version}</source>
+              <target>${main.java.version}</target>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>animal-sniffer-maven-plugin</artifactId>
+        <version>1.15</version>
+        <executions>
+          <execution>
+            <id>signature-check</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <signature>
+            <groupId>org.codehaus.mojo.signature</groupId>
+            <artifactId>java16</artifactId>
+            <version>1.0</version>
+          </signature>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-install-plugin</artifactId>
+        <version>2.5.2</version>
+        <configuration>
+          <createChecksum>true</createChecksum>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-release-plugin</artifactId>
+        <version>2.5.3</version>
+        <configuration>
+          <useReleaseProfile>false</useReleaseProfile>
+          <releaseProfiles>release</releaseProfiles>
+          <autoVersionSubmodules>true</autoVersionSubmodules>
+          <tagNameFormat>@{project.version}</tagNameFormat>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>io.zipkin.centralsync-maven-plugin</groupId>
+        <artifactId>centralsync-maven-plugin</artifactId>
+        <version>0.1.0</version>
+        <configuration>
+          <subject>openfeign</subject>
+          <repo>maven</repo>
+          <packageName>feign-cdi</packageName>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>
