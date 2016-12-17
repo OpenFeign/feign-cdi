@@ -16,6 +16,7 @@
 
 package feign.cdi.impl;
 
+import feign.Feign;
 import feign.cdi.api.FeignClient;
 
 import javax.enterprise.event.Observes;
@@ -25,14 +26,24 @@ import java.util.List;
 
 public class FeignExtension implements Extension{
     private final List<Class<?>> feignClientClasses = new ArrayList<Class<?>>();
+    private boolean builderBeanExists = false;
 
     public void collectFeignClients(@Observes @WithAnnotations(FeignClient.class)ProcessAnnotatedType<?> pat) {
         feignClientClasses.add(pat.getAnnotatedType().getJavaClass());
     }
 
+    public void checkForBuilderBeans(@Observes ProcessProducer<?,? extends Feign.Builder> pat) {
+        this.builderBeanExists = true;
+    }
+
     public void addFeignClientBeans(@Observes AfterBeanDiscovery afterBeanDiscovery) {
         for(Class<?> clientClass : feignClientClasses) {
-            afterBeanDiscovery.addBean(new AnnotatedFeignClientBean(clientClass));
+            if(builderBeanExists) {
+                afterBeanDiscovery.addBean(new DelegatingFeignClientBean(clientClass));
+            }
+            else {
+                afterBeanDiscovery.addBean(new AnnotatedFeignClientBean(clientClass));
+            }
         }
     }
 }

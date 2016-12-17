@@ -16,8 +16,8 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.6</maven.compiler.source>
-    <maven.compiler.target>1.6</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
     <maven.compiler.testSource>1.8</maven.compiler.testSource>
     <cdi-api.version>1.2</cdi-api.version>
@@ -26,6 +26,7 @@
     <arquillian-junit-container.version>1.1.11.Final</arquillian-junit-container.version>
     <feign.version>9.4.0</feign.version>
     <okhttp3.version>3.2.0</okhttp3.version>
+    <weld.version>2.4.0.Final</weld.version>
   </properties>
 
   <name>Open Feign CDI Parent</name>
@@ -181,8 +182,8 @@
               <goal>compile</goal>
             </goals>
             <configuration>
-              <source>${main.java.version}</source>
-              <target>${main.java.version}</target>
+              <source>${maven.compiler.source}</source>
+              <target>${maven.compiler.source}</target>
             </configuration>
           </execution>
         </executions>
