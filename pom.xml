@@ -24,9 +24,9 @@
     <owb.version>1.7.0</owb.version>
     <rxjava.version>1.1.10</rxjava.version>
     <arquillian-junit-container.version>1.1.11.Final</arquillian-junit-container.version>
-    <feign.version>9.4.0</feign.version>
+    <feign.version>9.3.1</feign.version>
     <okhttp3.version>3.2.0</okhttp3.version>
-    <weld.version>2.4.0.Final</weld.version>
+    <weld.version>2.4.1.Final</weld.version>
   </properties>
 
   <name>Open Feign CDI Parent</name>
