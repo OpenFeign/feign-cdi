@@ -141,6 +141,7 @@ class AnnotatedFeignClientBean implements Bean<Object> {
     }
 
     protected Feign.Builder mergeBuilders(Feign.Builder builder) {
+        System.out.println("merging builders in base class");
         builder.options(new Request.Options(feignClient.connectTimeoutMillis(), feignClient.readTimeoutMillis()));
         if(feignClient.decode404()) {
             builder.decode404();
