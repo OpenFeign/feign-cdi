@@ -42,7 +42,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(Arquillian.class)
 public class AnnotatedInjectedClientTest {
-    @FeignClient(url="http://myApp", client = RibbonClient.class)
+    @FeignClient(url="http://AnnotatedInjectedClientTest", client = RibbonClient.class)
     interface TestInterface {
         @RequestLine("POST /")
         String invoke();
@@ -63,7 +63,7 @@ public class AnnotatedInjectedClientTest {
 
     @Before
     public void setUp() throws Exception {
-        getConfigInstance().setProperty("myApp.ribbon.listOfServers", "localhost:"+server.url("").url().getPort());
+        getConfigInstance().setProperty("AnnotatedInjectedClientTest.ribbon.listOfServers", "localhost:"+server.url("").url().getPort());
     }
 
     @Test

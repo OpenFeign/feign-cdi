@@ -20,15 +20,18 @@ import feign.Feign;
 import feign.ribbon.RibbonClient;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Produces;
 
 @ApplicationScoped
 public class BuilderProvider {
     @Produces
-    @ApplicationScoped
-    Feign.Builder builder = Feign.builder()
-            .client(RibbonClient.create())
-            .errorDecoder((methodKey, response) -> {
-        throw new IllegalStateException("Error "+response.status()+" while invoking "+methodKey);
-    });
+    @Dependent
+    public Feign.Builder createBuilder() {
+        return Feign.builder()
+                .client(RibbonClient.builder().build())
+                .errorDecoder((methodKey, response) -> {
+                    throw new IllegalStateException("Error " + response.status() + " while invoking " + methodKey);
+                });
+    }
 }

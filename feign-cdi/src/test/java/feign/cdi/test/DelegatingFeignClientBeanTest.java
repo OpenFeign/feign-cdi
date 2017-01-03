@@ -17,20 +17,20 @@
 package feign.cdi.test;
 
 import feign.RequestLine;
-import feign.RetryableException;
 import feign.cdi.api.FeignClient;
 import feign.cdi.impl.FeignExtension;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
-import org.assertj.core.api.ThrowableAssert;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestName;
 import org.junit.runner.RunWith;
 
 import javax.enterprise.inject.spi.Extension;
@@ -43,7 +43,7 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @RunWith(Arquillian.class)
 public class DelegatingFeignClientBeanTest {
 
-    @FeignClient(url="http://myApp")
+    @FeignClient(url="http://DelegatingFeignClientBeanTest")
     interface TestInterface {
         @RequestLine("POST /")
         String invoke();
@@ -59,17 +59,28 @@ public class DelegatingFeignClientBeanTest {
     @Rule
     public MockWebServer server = new MockWebServer();
 
+    @Rule
+    public TestName testName = new TestName();
+
     @Inject
     private TestInterface api;
 
+    @Before
+    public void setUp() throws Exception {
+        String serverHost = "localhost:" + server.url("").url().getPort();
+        getConfigInstance().setProperty("DelegatingFeignClientBeanTest.ribbon.listOfServers", serverHost);
+    }
+
     @Test
     public void shouldHandleFailuresAndSuccesses() {
-        getConfigInstance().setProperty("myApp.ribbon.listOfServers", "localhost:"+server.url("").url().getPort());
         server.enqueue(new MockResponse().setResponseCode(500).setBody("Failure"));
         assertThatThrownBy(() -> api.invoke())
                 .isInstanceOf(IllegalStateException.class)
                 .hasMessage("Error 500 while invoking TestInterface#invoke()");
+    }
 
+    @Test
+    public void shouldExecuteASuccessCallUsingBuilder() {
         String body = "Success";
         server.enqueue(new MockResponse().setBody(body));
         String result = api.invoke();

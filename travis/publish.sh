@@ -97,6 +97,7 @@ if ! is_pull_request && build_started_by_tag; then
 fi
 
 ./mvnw install -nsu
+./mvnw install -POWB -nsu
 
 # If we are on a pull request, our only job is to run tests, which happened above via ./mvnw install
 if is_pull_request; then
