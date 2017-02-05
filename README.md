@@ -8,7 +8,7 @@ Feign CDI is built using Apache Maven.  Artifacts are published, though there's 
 <dependency>
     <groupId>io.github.openfeign.cdi</groupId>
     <artifactId>feign-cdi</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1.6</version>
 </dependency>
 ```
 
