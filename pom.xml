@@ -21,12 +21,12 @@
     <maven.compiler.testTarget>1.8</maven.compiler.testTarget>
     <maven.compiler.testSource>1.8</maven.compiler.testSource>
     <cdi-api.version>1.2</cdi-api.version>
-    <owb.version>1.7.0</owb.version>
+    <owb.version>1.7.1</owb.version>
     <rxjava.version>1.1.10</rxjava.version>
-    <arquillian-junit-container.version>1.1.11.Final</arquillian-junit-container.version>
+    <arquillian-junit-container.version>1.1.12.Final</arquillian-junit-container.version>
     <feign.version>9.4.0</feign.version>
     <okhttp3.version>3.2.0</okhttp3.version>
-    <weld.version>2.4.1.Final</weld.version>
+    <weld.version>2.4.2.Final</weld.version>
     <maven-source-plugin.version>3.0.0</maven-source-plugin.version>
     <maven-javadoc-plugin.version>2.10.3</maven-javadoc-plugin.version>
   </properties>
