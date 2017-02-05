@@ -49,7 +49,7 @@
   <scm>
     <url>https://github.com/OpenFeign/feign-cdi</url>
     <connection>scm:git:https://github.com/OpenFeign/feign-cdi.git</connection>
-    <developerConnection>scm:git:git@github.com:OpenFeign/feign-cdi.git</developerConnection>
+    <developerConnection>scm:git:https://github.com/OpenFeign/feign-cdi.git</developerConnection>
   </scm>
 
   <developers>
