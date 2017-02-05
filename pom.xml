@@ -5,7 +5,7 @@
 
   <groupId>io.github.openfeign.cdi</groupId>
   <artifactId>parent</artifactId>
-  <version>0.1.6</version>
+  <version>0.1.7-SNAPSHOT</version>
   <packaging>pom</packaging>
 
   <modules>
@@ -48,7 +48,7 @@
     <url>https://github.com/OpenFeign/feign-cdi</url>
     <connection>scm:git:https://github.com/OpenFeign/feign-cdi.git</connection>
     <developerConnection>scm:git:https://github.com/OpenFeign/feign-cdi.git</developerConnection>
-    <tag>0.1.6</tag>
+    <tag>HEAD</tag>
   </scm>
 
   <developers>
